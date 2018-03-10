@@ -7,7 +7,7 @@ export interface AutoSuggestAction {
   fieldValue: string;
 }
 
-export function changeText(fieldValue: string): AutoSuggestAction {
+export function changeInputValue(fieldValue: string): AutoSuggestAction {
   return {
     type: AutoSuggestActionsEnum.CHANGE_TEXT,
     fieldValue,
