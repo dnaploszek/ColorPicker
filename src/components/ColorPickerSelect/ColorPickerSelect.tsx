@@ -3,20 +3,16 @@ import * as React from 'react';
 import { Color, Colors } from '../../@types/colors.types';
 import { isArrayEmpty } from '../../utils/objectUtils';
 
+import { getBackgroundColorStyle, getColorStyle } from '../../utils/stylesUtils';
 import './ColorPickerSelect.css';
 
 interface Props {
   selectOptions: Colors;
+  colorHex: string;
   onSelect: (color: Color) => void;
 }
 
 export default class ColorPickerSelect extends React.Component<Props> {
-  getBackgroundColorStyle = (hex: string) => {
-    return {
-      backgroundColor: `#${hex}`,
-    };
-  }
-
   handleSelect(color: Color) {
     return () => {
       this.props.onSelect(color);
@@ -24,13 +20,16 @@ export default class ColorPickerSelect extends React.Component<Props> {
   }
 
   render() {
-    const { selectOptions } = this.props;
+    const { selectOptions, colorHex } = this.props;
     if (isArrayEmpty(selectOptions)) {
       return null;
     }
 
     return (
-      <ul className="color-picker-select--list-container">
+      <ul
+        style={{...getBackgroundColorStyle(colorHex, true), ...getColorStyle(colorHex, false)}}
+        className="color-picker-select--list-container"
+      >
         {selectOptions.map((color: Color) => (
           <li
             key={color.hex}
@@ -38,7 +37,7 @@ export default class ColorPickerSelect extends React.Component<Props> {
             className="color-picker-select--list-item"
           >
             <div
-              style={this.getBackgroundColorStyle(color.hex)}
+              style={getBackgroundColorStyle(color.hex)}
               className="color-picker-select--color-highlight"
             />
             <span className="color-picker-select--color-name">

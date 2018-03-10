@@ -14,8 +14,8 @@ const initialState: ColorsState = {
   didError: false,
   colors: [],
   selectedColor: {
-    name: 'white',
-    hex: 'FFFFFF',
+    name: 'red',
+    hex: 'ff0000',
   },
 };
 

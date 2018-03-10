@@ -1,0 +1,15 @@
+.color-picker-button--button {
+  background: none;
+  height: 80px;
+  font-size: 28px;
+  padding: 0 15px;
+  border: solid 1px;
+  border-radius: 5px;
+  margin-left: 10px;
+  box-shadow: 2px 2px 1px 1px;
+  cursor: pointer;
+}
+
+.color-picker-button--button:hover {
+  background-color: aliceblue;
+}

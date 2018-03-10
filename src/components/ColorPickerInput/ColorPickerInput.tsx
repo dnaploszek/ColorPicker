@@ -1,12 +1,14 @@
 import * as React from 'react';
 import { ChangeEvent } from 'react';
 
+import { getBackgroundColorStyle, getColorStyle } from '../../utils/stylesUtils';
 import './ColorPickerInput.css';
 
 interface Props {
   value: string;
   placeholder: string;
   disabled: boolean;
+  colorHex: string;
   onChange: (value: string) => void;
 }
 
@@ -20,9 +22,10 @@ export default class ColorPickerInput extends React.Component<Props> {
   }
 
   render() {
-    const { value, disabled, placeholder } = this.props;
+    const { value, disabled, colorHex, placeholder } = this.props;
     return (
       <input
+        style={{...getBackgroundColorStyle(colorHex, true), ...getColorStyle(colorHex, false)}}
         className={'color-picker-input--input'}
         value={value}
         disabled={disabled}

@@ -8,11 +8,13 @@ import { fetchColors, selectColor } from './actions/colors';
 import { changeInputValue } from './actions/autoSuggest';
 
 import './App.css';
+import { getBackgroundColorStyle } from './utils/stylesUtils';
 
 interface Props {
   inputValue: string;
   colors: Colors;
   isFetching: boolean;
+  selectedColor: Color;
   fetchColors: () => Promise<void>;
   handleInputChange: (value: string) => void;
   handleColorSelect: (color: Color) => void;
@@ -24,13 +26,15 @@ class App extends React.Component<Props> {
   }
 
   render() {
-    const { inputValue, colors, isFetching, handleInputChange, handleColorSelect } = this.props;
+    const { inputValue, colors, isFetching, selectedColor, handleInputChange, handleColorSelect } = this.props;
     return (
       <div className="app--container">
+        <div style={getBackgroundColorStyle(selectedColor.hex)} className="app--background"/>
         <AutoSuggest
           value={inputValue}
           colors={colors}
           isFetching={isFetching}
+          selectedColor={selectedColor}
           onInputChange={handleInputChange}
           onSelectColor={handleColorSelect}
         />
@@ -42,6 +46,7 @@ class App extends React.Component<Props> {
 const mapStateToProps = (state) => ({
   inputValue: state.autoSuggest,
   colors: state.colors.colors,
+  selectedColor: state.colors.selectedColor,
   isFetching: state.isFetching,
 });
 

@@ -6,10 +6,12 @@ import ColorPickerSelect from '../ColorPickerSelect/ColorPickerSelect';
 
 import dict from '../../constants/dict-eng';
 import './AutoSuggest.css';
+import ColorPickerButton from '../ColorPickerButton/ColorPickerButton';
 
 interface Props {
   value: string;
   colors: Colors;
+  selectedColor: Color;
   onSelectColor: (color: Color) => void;
   onInputChange: (value: string) => void;
   isFetching: boolean;
@@ -27,18 +29,25 @@ export default class AutoSuggest extends React.Component<Props> {
   }
 
   render() {
-    const { value, isFetching, onInputChange, onSelectColor } = this.props;
+    const { value, isFetching, selectedColor, onInputChange, onSelectColor } = this.props;
     return (
       <div className="auto-suggest--container">
-        <ColorPickerInput
-          value={value}
-          placeholder={dict.inputPlaceholder}
-          disabled={isFetching}
-          onChange={onInputChange}
-        />
-        <ColorPickerSelect
-          selectOptions={this.getSelectOptions()}
-          onSelect={onSelectColor}
+        <div>
+          <ColorPickerInput
+            value={value}
+            placeholder={dict.inputPlaceholder}
+            disabled={isFetching}
+            colorHex={selectedColor.hex}
+            onChange={onInputChange}
+          />
+          <ColorPickerSelect
+            selectOptions={this.getSelectOptions()}
+            colorHex={selectedColor.hex}
+            onSelect={onSelectColor}
+          />
+        </div>
+        <ColorPickerButton
+          colorHex={selectedColor.hex}
         />
       </div>
     );
