@@ -1,0 +1,28 @@
+.color-picker-select--list-container {
+  position: relative;
+  top: -5px;
+  padding: 5px 0;
+  margin: 0;
+  list-style-type: none;
+  border: 1px solid;
+  border-top: none;
+  border-radius: 0 0 5px 5px;
+  transition: height 500ms;
+
+  .color-picker-select--list-item {
+    display: flex;
+    align-items: center;
+    padding: 5px 0;
+
+    .color-picker-select--color-highlight {
+      height: 15px;
+      width: 15px;
+      margin: 0 10px;
+    }
+
+    .color-picker-select--color-name {
+
+    }
+  }
+}
+

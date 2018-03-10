@@ -1,0 +1,1 @@
+export const isArrayEmpty = (array: Array<any>) => !array || !array.length;
