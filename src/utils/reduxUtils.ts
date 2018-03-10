@@ -1,0 +1,1 @@
+export const assignNewState = (state: any, changes: any) => Object.assign({}, state, changes);
