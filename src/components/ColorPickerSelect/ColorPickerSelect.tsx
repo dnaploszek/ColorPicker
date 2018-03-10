@@ -8,33 +8,77 @@ import './ColorPickerSelect.css';
 
 interface Props {
   selectOptions: Colors;
+  hintedColor: Color;
   colorHex: string;
   onSelect: (color: Color) => void;
+  onHintedColorChange: (color: Color) => void;
 }
 
 export default class ColorPickerSelect extends React.Component<Props> {
-  handleSelect(color: Color) {
+  componentDidMount() {
+    window.addEventListener('keyup', this.handleKeyUp);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keyup', this.handleKeyUp);
+  }
+
+  handleSelect = (color: Color) => {
     return () => {
       this.props.onSelect(color);
     };
   }
 
+  handleMouseOver = (color: Color) => {
+    return () => {
+      this.props.onHintedColorChange(color);
+    };
+  }
+
+  handleKeyUp = (e: KeyboardEvent) => {
+    const { key } = e;
+    if (key !== 'ArrowUp' && key !== 'ArrowDown' && key !== 'Enter') {
+      return;
+    }
+    e.preventDefault();
+    switch (key) {
+      case 'ArrowUp':
+        this.handleHintedChange(-1);
+        return;
+      case 'ArrowDown':
+        this.handleHintedChange(1);
+        return;
+      case 'Enter':
+        this.props.onSelect(this.props.hintedColor);
+        return;
+      default:
+    }
+  }
+
+  handleHintedChange = (direction: number) => {
+    const { selectOptions, hintedColor } = this.props;
+    const index = selectOptions.findIndex((color: Color) => color.name === hintedColor.name);
+    const newIndex = (index + direction) % selectOptions.length;
+    this.props.onHintedColorChange(selectOptions[newIndex < 0 ? selectOptions.length - 1 : newIndex]);
+  }
+
   render() {
-    const { selectOptions, colorHex } = this.props;
+    const { selectOptions, hintedColor, colorHex } = this.props;
     if (isArrayEmpty(selectOptions)) {
       return null;
     }
 
     return (
       <ul
-        style={{...getBackgroundColorStyle(colorHex, true), ...getColorStyle(colorHex, false)}}
+        style={{ ...getBackgroundColorStyle(colorHex, true), ...getColorStyle(colorHex, false) }}
         className="color-picker-select--list-container"
       >
         {selectOptions.map((color: Color) => (
           <li
             key={color.hex}
             onClick={this.handleSelect(color)}
-            className="color-picker-select--list-item"
+            onMouseEnter={this.handleMouseOver(color)}
+            className={`color-picker-select--list-item${color.name === hintedColor.name ? ' highlight' : ''}`}
           >
             <div
               style={getBackgroundColorStyle(color.hex)}

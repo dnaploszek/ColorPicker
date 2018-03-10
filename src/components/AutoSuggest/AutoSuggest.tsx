@@ -3,33 +3,31 @@ import { Color, Colors } from '../../@types/colors.types';
 
 import ColorPickerInput from '../ColorPickerInput/ColorPickerInput';
 import ColorPickerSelect from '../ColorPickerSelect/ColorPickerSelect';
+import ColorPickerButton from '../ColorPickerButton/ColorPickerButton';
 
 import dict from '../../constants/dict-eng';
 import './AutoSuggest.css';
-import ColorPickerButton from '../ColorPickerButton/ColorPickerButton';
 
 interface Props {
   value: string;
   colors: Colors;
   selectedColor: Color;
-  onSelectColor: (color: Color) => void;
-  onInputChange: (value: string) => void;
+  hintedColor: Color;
   isFetching: boolean;
+  onInputChange: (value: string) => void;
+  onSelectColor: (color: Color) => void;
+  onHintedColorChange: (color: Color) => void;
 }
 
 export default class AutoSuggest extends React.Component<Props> {
-  getSelectOptions = (): Colors => {
-    const { colors, value } = this.props;
-
-    if (value.length < 2) {
-      return [];
-    }
-
-    return colors.filter((color: Color) => color.name.startsWith(value) || color.hex.startsWith(value));
+  handleAcceptButton = () => {
+      this.props.onSelectColor(this.props.hintedColor);
   }
 
   render() {
-    const { value, isFetching, selectedColor, onInputChange, onSelectColor } = this.props;
+    const {
+      value, colors, hintedColor, isFetching, selectedColor, onInputChange, onSelectColor, onHintedColorChange
+    } = this.props;
     return (
       <div className="auto-suggest--container">
         <div>
@@ -41,13 +39,17 @@ export default class AutoSuggest extends React.Component<Props> {
             onChange={onInputChange}
           />
           <ColorPickerSelect
-            selectOptions={this.getSelectOptions()}
+            selectOptions={colors}
+            hintedColor={hintedColor}
             colorHex={selectedColor.hex}
             onSelect={onSelectColor}
+            onHintedColorChange={onHintedColorChange}
           />
         </div>
         <ColorPickerButton
           colorHex={selectedColor.hex}
+          onPress={this.handleAcceptButton}
+          disabled={!hintedColor}
         />
       </div>
     );

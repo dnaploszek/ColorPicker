@@ -1,13 +1,31 @@
-import { AutoSuggestAction, AutoSuggestActionsEnum, } from '../actions/autoSuggest';
+import { Color } from '../@types/colors.types';
 
-export type AutoSuggestState = string;
+import {
+  AutoSuggestAction, AutoSuggestActionsEnum, AutoSuggestChangeTextAction, AutoSuggestSetHintedColorAction,
+} from '../actions/autoSuggest';
+import { assignNewState } from '../utils/reduxUtils';
 
-const initialState = '';
+export type AutoSuggestState = {
+  inputValue: string;
+  hintedColor: Color | undefined;
+};
+
+const initialState = {
+  inputValue: '',
+  hintedColor: undefined,
+};
 
 const autoSuggest = (state: AutoSuggestState = initialState, action: AutoSuggestAction): AutoSuggestState => {
   switch (action.type) {
     case AutoSuggestActionsEnum.CHANGE_TEXT:
-      return action.fieldValue;
+      return assignNewState(state, {
+        inputValue: (action as AutoSuggestChangeTextAction).fieldValue,
+        hintedColor: undefined,
+      });
+    case AutoSuggestActionsEnum.SET_HINTED_COLOR:
+      return assignNewState(state, {
+        hintedColor: (action as AutoSuggestSetHintedColorAction).hintedColor
+      });
     default:
       return state;
   }

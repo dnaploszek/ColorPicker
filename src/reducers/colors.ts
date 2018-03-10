@@ -1,5 +1,6 @@
-import { ColorsActions, ColorsActionsEnum, ReceiveColorsAction, SelectColorAction } from '../actions/colors';
 import { Color, Colors } from '../@types/colors.types';
+
+import { ColorsActions, ColorsActionsEnum, ReceiveColorsAction, SelectColorAction } from '../actions/colors';
 import { assignNewState } from '../utils/reduxUtils';
 
 export interface ColorsState {

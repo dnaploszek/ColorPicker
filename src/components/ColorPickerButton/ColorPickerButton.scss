@@ -13,3 +13,9 @@
 .color-picker-button--button:hover {
   background-color: aliceblue;
 }
+
+.color-picker-button--button:disabled {
+  color: gray !important;
+  box-shadow: none;
+  cursor: default;
+}
