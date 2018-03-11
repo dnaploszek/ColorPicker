@@ -8,6 +8,7 @@ import ColorPickerButton from '../ColorPickerButton/ColorPickerButton';
 import dict from '../../constants/dict-eng';
 import './AutoSuggest.css';
 import Loading from '../Loading/Loading';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 interface Props {
   value: string;
@@ -15,6 +16,7 @@ interface Props {
   selectedColor: Color;
   hintedColor: Color;
   isFetching: boolean;
+  errorMessage: string;
   onInputChange: (value: string) => void;
   onSelectColor: (color: Color) => void;
   onHintedColorChange: (color: Color) => void;
@@ -27,7 +29,8 @@ export default class AutoSuggest extends React.Component<Props> {
 
   render() {
     const {
-      value, colors, hintedColor, isFetching, selectedColor, onInputChange, onSelectColor, onHintedColorChange
+      value, colors, hintedColor, isFetching, errorMessage, selectedColor, onInputChange, onSelectColor,
+      onHintedColorChange
     } = this.props;
 
     return (
@@ -41,6 +44,7 @@ export default class AutoSuggest extends React.Component<Props> {
             onChange={onInputChange}
           />
           {isFetching && <Loading loadingText={dict.loadingColors}/>}
+          {errorMessage && <ErrorMessage message={errorMessage}/>}
           <ColorPickerSelect
             selectOptions={colors}
             hintedColor={hintedColor}

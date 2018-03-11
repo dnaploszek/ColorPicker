@@ -5,7 +5,6 @@ import App from '../../App';
 
 import configureStore from '../../configureStore';
 
-// TODO: preload state
 const store = configureStore();
 
 export default class RootContainer extends React.Component {

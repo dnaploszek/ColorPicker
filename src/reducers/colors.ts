@@ -1,18 +1,21 @@
 import { Color, Colors } from '../@types/colors.types';
 
-import { ColorsActions, ColorsActionsEnum, ReceiveColorsAction, SelectColorAction } from '../actions/colors';
+import {
+  ColorsActions, ColorsActionsEnum, DidErrorAction, ReceiveColorsAction,
+  SelectColorAction
+} from '../actions/colors';
 import { assignNewState } from '../utils/reduxUtils';
 
 export interface ColorsState {
   isFetching: boolean;
-  didError: boolean;
+  errorMessage: string;
   colors: Colors;
   selectedColor: Color;
 }
 
 const initialState: ColorsState = {
   isFetching: false,
-  didError: false,
+  errorMessage: '',
   colors: [],
   selectedColor: {
     name: 'red',
@@ -25,17 +28,22 @@ const colors = (state: ColorsState = initialState, action: ColorsActions): Color
     case ColorsActionsEnum.REQUEST_COLORS:
       return assignNewState(state, {
         isFetching: true,
-        didError: false,
+        errorMessage: '',
       });
     case ColorsActionsEnum.RECEIVE_COLORS:
       return assignNewState(state, {
         isFetching: false,
-        didError: false,
+        errorMessage: '',
         colors: (action as ReceiveColorsAction).colors,
       });
     case ColorsActionsEnum.SELECT_COLOR:
       return assignNewState(state, {
         selectedColor: (action as SelectColorAction).color,
+      });
+    case ColorsActionsEnum.DID_ERROR:
+      return assignNewState(state, {
+        errorMessage: (action as DidErrorAction).error.message,
+        isFetching: false,
       });
     default:
       return state;

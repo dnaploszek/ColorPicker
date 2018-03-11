@@ -5,6 +5,7 @@ export enum ColorsActionsEnum {
   SELECT_COLOR = 'SELECT_COLOR',
   REQUEST_COLORS = 'REQUEST_COLORS',
   RECEIVE_COLORS = 'RECEIVE_COLORS',
+  DID_ERROR = 'DID_ERROR',
 }
 
 export interface ColorsAction {
@@ -17,6 +18,10 @@ export interface ReceiveColorsAction extends ColorsAction {
 
 export interface SelectColorAction extends ColorsAction {
   color: Color;
+}
+
+export interface DidErrorAction extends ColorsAction {
+  error: Error;
 }
 
 export type ColorsActions = ColorsAction | ReceiveColorsAction;
@@ -34,11 +39,22 @@ function receiveColors(colors: Colors): ReceiveColorsAction {
   };
 }
 
+function didError(error: Error): DidErrorAction {
+  return {
+    type: ColorsActionsEnum.DID_ERROR,
+    error: error,
+  };
+}
+
 export function fetchColors() {
   return async dispatch => {
     dispatch(requestColors());
-    const colors = await ColorsService.fetchColors();
-    dispatch(receiveColors(colors));
+    try {
+      const colors = await ColorsService.fetchColors();
+      dispatch(receiveColors(colors));
+    } catch (error) {
+      dispatch(didError(error));
+    }
   };
 }
 

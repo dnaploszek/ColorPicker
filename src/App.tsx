@@ -14,6 +14,7 @@ interface Props {
   inputValue: string;
   colors: Colors;
   isFetching: boolean;
+  errorMessage: string;
   selectedColor: Color;
   hintedColor: Color;
   fetchColors: () => Promise<void>;
@@ -29,7 +30,7 @@ class App extends React.Component<Props> {
 
   render() {
     const {
-      inputValue, hintedColor, colors, isFetching, selectedColor, handleInputChange, handleColorSelect,
+      inputValue, hintedColor, colors, isFetching, errorMessage, selectedColor, handleInputChange, handleColorSelect,
       handleHintedColorChange
     } = this.props;
     return (
@@ -40,6 +41,7 @@ class App extends React.Component<Props> {
           colors={colors}
           hintedColor={hintedColor}
           isFetching={isFetching}
+          errorMessage={errorMessage}
           selectedColor={selectedColor}
           onInputChange={handleInputChange}
           onSelectColor={handleColorSelect}
@@ -66,6 +68,7 @@ const mapStateToProps = (state) => {
       filteredColors[0] : state.autoSuggest.hintedColor,
     selectedColor: state.colors.selectedColor,
     isFetching: state.colors.isFetching,
+    errorMessage: state.colors.errorMessage,
   };
 };
 

@@ -43,7 +43,6 @@ export default class ApiUtils {
 
       return await response.json();
     } catch (error) {
-      // TODO: handle different error types.
       throw new Error(error.message);
     }
   }
