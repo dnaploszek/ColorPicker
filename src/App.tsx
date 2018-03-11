@@ -65,7 +65,7 @@ const mapStateToProps = (state) => {
     hintedColor: filteredColors.length && !state.autoSuggest.hintedColor ?
       filteredColors[0] : state.autoSuggest.hintedColor,
     selectedColor: state.colors.selectedColor,
-    isFetching: state.isFetching,
+    isFetching: state.colors.isFetching,
   };
 };
 

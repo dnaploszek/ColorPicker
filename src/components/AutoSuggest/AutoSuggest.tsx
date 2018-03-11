@@ -7,6 +7,7 @@ import ColorPickerButton from '../ColorPickerButton/ColorPickerButton';
 
 import dict from '../../constants/dict-eng';
 import './AutoSuggest.css';
+import Loading from '../Loading/Loading';
 
 interface Props {
   value: string;
@@ -28,6 +29,7 @@ export default class AutoSuggest extends React.Component<Props> {
     const {
       value, colors, hintedColor, isFetching, selectedColor, onInputChange, onSelectColor, onHintedColorChange
     } = this.props;
+
     return (
       <div className="auto-suggest--container">
         <div>
@@ -38,6 +40,7 @@ export default class AutoSuggest extends React.Component<Props> {
             colorHex={selectedColor.hex}
             onChange={onInputChange}
           />
+          {isFetching && <Loading loadingText={dict.loadingColors}/>}
           <ColorPickerSelect
             selectOptions={colors}
             hintedColor={hintedColor}

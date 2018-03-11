@@ -1,0 +1,25 @@
+.loading--container {
+  display: flex;
+  justify-content: center;
+  margin: 15px 0;
+
+  .loading--animation {
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+    margin-left: 15px;
+    .loading--dot {
+      position: relative;
+      margin: 0 2px;
+      background-color: black;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      transition: all 200ms ease-in-out;
+    }
+
+    .loading--dot.bump {
+      margin-top: -10px;
+    }
+  }
+}
