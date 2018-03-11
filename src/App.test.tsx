@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 
 import { App } from './App';
 import colorsMock from './mocks/colorsMock';
@@ -21,7 +21,7 @@ describe('App Component', () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = shallow(<App {...props} />);
+    wrapper = mount(<App {...props} />);
   });
 
   it('renders without crashing', () => {
