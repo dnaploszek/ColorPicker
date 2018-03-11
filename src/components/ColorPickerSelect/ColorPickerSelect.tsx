@@ -75,7 +75,7 @@ export default class ColorPickerSelect extends React.Component<Props> {
       >
         {selectOptions.map((color: Color) => (
           <li
-            key={color.hex}
+            key={`${color.name}-${color.hex}`}
             onClick={this.handleSelect(color)}
             onMouseEnter={this.handleMouseEnter(color)}
             className={`color-picker-select--list-item${color.name === hintedColor.name ? ' highlight' : ''}`}
