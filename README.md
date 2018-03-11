@@ -13,3 +13,6 @@ You can find the most recent version of CRA guide [here](https://github.com/face
 - Typescript [Docs](https://www.typescriptlang.org/docs/home.html),
 - Sass [Docs](https://sass-lang.com/documentation/file.SASS_REFERENCE.html),
 - Redux [Docs](https://redux.js.org/)
+
+## Demo
+Demo is available at [my github page](https://dnaploszek.github.io/color-picker/).

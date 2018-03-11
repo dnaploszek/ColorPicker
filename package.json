@@ -1,5 +1,6 @@
 {
   "name": "color-picker",
+  "homepage": "http://dnaploszek.github.io/color-picker",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -20,7 +21,9 @@
     "build-js": "react-scripts-ts build",
     "build": "npm-run-all build-css build-js",
     "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject"
+    "eject": "react-scripts-ts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "devDependencies": {
     "@types/jest": "^22.2.0",
@@ -30,6 +33,7 @@
     "@types/react-redux": "^5.0.15",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
+    "gh-pages": "^1.1.0",
     "redux-devtools": "^3.4.1",
     "redux-devtools-extension": "^2.13.2",
     "typescript": "^2.7.2"
