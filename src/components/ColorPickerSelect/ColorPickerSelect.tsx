@@ -16,11 +16,11 @@ interface Props {
 
 export default class ColorPickerSelect extends React.Component<Props> {
   componentDidMount() {
-    window.addEventListener('keyup', this.handleKeyUp);
+    window.addEventListener('keydown', this.handleKeyDown);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('keyup', this.handleKeyUp);
+    window.removeEventListener('keydown', this.handleKeyDown);
   }
 
   handleSelect = (color: Color) => {
@@ -29,13 +29,13 @@ export default class ColorPickerSelect extends React.Component<Props> {
     };
   }
 
-  handleMouseOver = (color: Color) => {
+  handleMouseEnter = (color: Color) => {
     return () => {
       this.props.onHintedColorChange(color);
     };
   }
 
-  handleKeyUp = (e: KeyboardEvent) => {
+  handleKeyDown = (e: KeyboardEvent) => {
     const { key } = e;
     if (key !== 'ArrowUp' && key !== 'ArrowDown' && key !== 'Enter') {
       return;
@@ -77,14 +77,14 @@ export default class ColorPickerSelect extends React.Component<Props> {
           <li
             key={color.hex}
             onClick={this.handleSelect(color)}
-            onMouseEnter={this.handleMouseOver(color)}
+            onMouseEnter={this.handleMouseEnter(color)}
             className={`color-picker-select--list-item${color.name === hintedColor.name ? ' highlight' : ''}`}
           >
             <div
               style={getBackgroundColorStyle(color.hex)}
               className="color-picker-select--color-highlight"
             />
-            <span className="color-picker-select--color-name">
+            <span>
               {color.name}
             </span>
           </li>
