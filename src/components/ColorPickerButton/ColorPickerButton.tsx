@@ -7,8 +7,8 @@ import './ColorPickerButton.css';
 
 interface Props {
   colorHex: string;
-  onPress: () => void;
   disabled: boolean;
+  onPress: () => void;
 }
 
 export default class ColorPickerButton extends React.Component<Props> {

@@ -23,7 +23,8 @@ interface Props {
   handleHintedColorChange: (color: Color) => void;
 }
 
-class App extends React.Component<Props> {
+// export for tests purposes
+export class App extends React.Component<Props> {
   async componentDidMount() {
     await this.props.fetchColors();
   }

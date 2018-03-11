@@ -1,8 +1,30 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import App from './App';
+import { shallow } from 'enzyme';
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
+import { App } from './App';
+import colorsMock from './mocks/colorsMock';
+
+const props = {
+  inputValue: '',
+  colors: colorsMock,
+  isFetching: false,
+  errorMessage: '',
+  selectedColor: colorsMock[0],
+  hintedColor: colorsMock[0],
+  fetchColors: jest.fn(),
+  handleInputChange: jest.fn(),
+  handleColorSelect: jest.fn(),
+  handleHintedColorChange: jest.fn(),
+};
+
+describe('App Component', () => {
+  let wrapper;
+
+  beforeEach(() => {
+    wrapper = shallow(<App {...props} />);
+  });
+
+  it('renders without crashing', () => {
+    expect(wrapper.length).toBe(1);
+  });
 });
