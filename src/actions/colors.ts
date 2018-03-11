@@ -24,7 +24,7 @@ export interface DidErrorAction extends ColorsAction {
   error: Error;
 }
 
-export type ColorsActions = ColorsAction | ReceiveColorsAction;
+export type ColorsActions = ColorsAction | ReceiveColorsAction | DidErrorAction | SelectColorAction;
 
 function requestColors(): ColorsAction {
   return {
